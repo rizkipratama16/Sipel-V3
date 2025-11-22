@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SipeL • Data Kandidat</title>
+  <link rel="stylesheet" href="/css/dashboard-panitia.css">
+  <link rel="stylesheet" href="/css/kandidat.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <a href="index.html">
+          <img src="/assets/logo-sipel.png.jpg" alt="SipeL Logo" class="logo-img">
+          <span>SipeL</span>
+        </a>
+      </div>
+      
+      <!-- Hamburger Menu -->
+      <div class="hamburger" id="hamburger">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="admin-container">
+    <aside class="sidebar" id="sidebar">
+      <div class="side-logo">Menu</div>
+      <ul>
+        <li><a href="dashboard.html">Beranda</a></li>
+        <li><a href="schedule.html">Jadwal Pemilihan</a></li>
+        <li><a href="data-pemilih.html">Data Warga</a></li>
+        <li><a href="kandidat.html" class="active">Data Kandidat</a></li>
+        <li><a href="rekap.html">Rekap Suara</a></li>
+        <li><a href="hasil.html">Hasil Akhir</a></li>
+      </ul>
+    </aside>
+
+    <!-- Tambahkan overlay untuk mobile -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <main class="main-content">
+      <div class="content-page">
+        <div class="page-header">
+          <h1>Calon Kandidat</h1>
+          <p class="subtitle">Perumahan Buana Jaya Batam Kota</p>
+        </div>
+
+        <section class="candidate-section">
+          <div class="section-title">
+            <span>Calon RT 001</span>
+            <button class="btn-add" onclick="openForm('RT 001')">
+              <i class="fas fa-plus"></i> Tambah Kandidat
+            </button>
+          </div>
+
+          <div class="candidate-grid" id="rt001Candidates">
+            <div class="empty-grid-message">
+              <i class="fas fa-user-plus"></i>
+              <p>Belum ada kandidat untuk RT 001</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="candidate-section">
+          <div class="section-title">
+            <span>Calon RT 002</span>
+            <button class="btn-add" onclick="openForm('RT 002')">
+              <i class="fas fa-plus"></i> Tambah Kandidat
+            </button>
+          </div>
+
+          <div class="candidate-grid" id="rt002Candidates">
+            <div class="empty-grid-message">
+              <i class="fas fa-user-plus"></i>
+              <p>Belum ada kandidat untuk RT 002</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="candidate-section">
+          <div class="section-title">
+            <span>Calon RT 003</span>
+            <button class="btn-add" onclick="openForm('RT 003')">
+              <i class="fas fa-plus"></i> Tambah Kandidat
+            </button>
+          </div>
+
+          <div class="candidate-grid" id="rt003Candidates">
+            <div class="empty-grid-message">
+              <i class="fas fa-user-plus"></i>
+              <p>Belum ada kandidat untuk RT 003</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="candidate-section">
+          <div class="section-title">
+            <span>Calon RW 001</span>
+            <button class="btn-add" onclick="openForm('RW 001')">
+              <i class="fas fa-plus"></i> Tambah Kandidat
+            </button>
+          </div>
+
+          <div class="candidate-grid" id="rw001Candidates">
+            <div class="empty-grid-message">
+              <i class="fas fa-user-plus"></i>
+              <p>Belum ada kandidat untuk RW 001</p>
+            </div>
+          </div>
+        </section>
+
+        <button class="btn-back" onclick="window.history.back()">
+          <i class="fas fa-arrow-left"></i> Kembali
+        </button>
+      </div>
+
+      <footer>
+        <div class="footer-content">
+          <p>© 2025 SipeL • Sistem Pemilihan Elektronik RT/RW</p>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Popup Form -->
+  <div class="popup-overlay" id="popupForm">
+    <div class="popup-box">
+      <h2>Tambah Kandidat <span id="popupRole"></span></h2>
+      <form id="formKandidat">
+        <div class="form-group">
+          <label for="nama">Nama Kandidat</label>
+          <input type="text" id="nama" placeholder="Masukkan nama kandidat" required>
+        </div>
+        <div class="form-group">
+          <label for="jabatan">Jabatan</label>
+          <select id="jabatan" required>
+            <option value="">Pilih Jabatan</option>
+            <option value="RT 001">RT 001</option>
+            <option value="RT 002">RT 002</option>
+            <option value="RT 003">RT 003</option>
+            <option value="RW 001">RW 001</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="foto">Foto Kandidat</label>
+          <input type="file" id="foto" accept="image/*">
+          <div class="image-preview" id="imagePreview"></div>
+        </div>
+        <div class="form-group">
+          <label for="visi">Visi Singkat</label>
+          <textarea id="visi" rows="3" placeholder="Masukkan visi kandidat" required></textarea>
+        </div>
+        <div class="popup-actions">
+          <button type="button" class="btn-cancel" onclick="closeForm()">Batal</button>
+          <button type="submit" class="btn-save" id="submitButton">
+            <i class="fas fa-save"></i> Simpan
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Data kandidat - KOSONG
+    let candidatesData = [];
+
+    // Mapping antara jabatan dan ID container
+    const positionContainerMap = {
+      "RT 001": "rt001Candidates",
+      "RT 002": "rt002Candidates",
+      "RT 003": "rt003Candidates",
+      "RW 001": "rw001Candidates"
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Load initial data
+        loadCandidatesData();
+        
+        const hamburger = document.getElementById('hamburger');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+        if (hamburger && sidebar) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                sidebar.classList.toggle('active');
+                
+                // Toggle overlay
+                if (sidebarOverlay) {
+                    sidebarOverlay.classList.toggle('active');
+                }
+            });
+
+            // Close sidebar when clicking on overlay
+            if (sidebarOverlay) {
+                sidebarOverlay.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    sidebar.classList.remove('active');
+                    sidebarOverlay.classList.remove('active');
+                });
+            }
+
+            // Close sidebar when clicking on a sidebar link
+            document.querySelectorAll('.sidebar a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    sidebar.classList.remove('active');
+                    if (sidebarOverlay) {
+                        sidebarOverlay.classList.remove('active');
+                    }
+                });
+            });
+
+            // Close sidebar when scrolling on mobile
+            window.addEventListener('scroll', () => {
+                if (window.innerWidth <= 768 && sidebar.classList.contains('active')) {
+                    hamburger.classList.remove('active');
+                    sidebar.classList.remove('active');
+                    if (sidebarOverlay) {
+                        sidebarOverlay.classList.remove('active');
+                    }
+                }
+            });
+        }
+
+        // Image preview functionality
+        const fotoInput = document.getElementById('foto');
+        if (fotoInput) {
+            fotoInput.addEventListener('change', function() {
+                const preview = document.getElementById('imagePreview');
+                preview.innerHTML = '';
+                
+                if (this.files && this.files[0]) {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        preview.appendChild(img);
+                    }
+                    
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+        }
+
+        // Form submission
+        const formKandidat = document.getElementById('formKandidat');
+        if (formKandidat) {
+            formKandidat.addEventListener('submit', handleFormSubmit);
+        }
+    });
+
+    let editingCandidate = null;
+    let currentRole = '';
+
+    function loadCandidatesData() {
+        // Clear all containers first
+        Object.values(positionContainerMap).forEach(containerId => {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            // Add empty message
+            const emptyMessage = document.createElement('div');
+            emptyMessage.className = 'empty-grid-message';
+            emptyMessage.innerHTML = `
+                <i class="fas fa-user-plus"></i>
+                <p>Belum ada kandidat untuk ${getPositionNameFromContainerId(containerId)}</p>
+            `;
+            container.appendChild(emptyMessage);
+        });
+
+        // Load candidates from data
+        candidatesData.forEach(candidate => {
+            addCandidateToDOM(candidate);
+        });
+    }
+
+    function getPositionNameFromContainerId(containerId) {
+        const mapping = {
+            "rt001Candidates": "RT 001",
+            "rt002Candidates": "RT 002", 
+            "rt003Candidates": "RT 003",
+            "rw001Candidates": "RW 001"
+        };
+        return mapping[containerId] || containerId;
+    }
+
+    function openForm(role) {
+        currentRole = role;
+        document.getElementById('popupRole').textContent = role;
+        document.getElementById('jabatan').value = role;
+        document.getElementById('submitButton').innerHTML = '<i class="fas fa-save"></i> Simpan';
+        document.getElementById('formKandidat').reset();
+        document.getElementById('imagePreview').innerHTML = '';
+        editingCandidate = null;
+        document.getElementById('popupForm').classList.add('active');
+    }
+
+    function closeForm() {
+        document.getElementById('popupForm').classList.remove('active');
+        editingCandidate = null;
+    }
+
+    function handleFormSubmit(e) {
+        e.preventDefault();
+        
+        const nama = document.getElementById('nama').value.trim();
+        const jabatan = document.getElementById('jabatan').value;
+        const visi = document.getElementById('visi').value.trim();
+        const fotoInput = document.getElementById('foto');
+
+        // Validation
+        if (!nama || !jabatan || !visi) {
+            showAlert('Semua field harus diisi!', 'error');
+            return;
+        }
+
+        if (editingCandidate !== null) {
+            updateCandidate(editingCandidate);
+        } else {
+            addNewCandidate();
+        }
+    }
+
+    function addNewCandidate() {
+        const nama = document.getElementById('nama').value.trim();
+        const jabatan = document.getElementById('jabatan').value;
+        const visi = document.getElementById('visi').value.trim();
+        const fotoInput = document.getElementById('foto');
+
+        // Create new candidate object
+        const newId = candidatesData.length > 0 ? Math.max(...candidatesData.map(c => c.id)) + 1 : 1;
+        const newCandidate = {
+            id: newId,
+            name: nama,
+            position: jabatan,
+            vision: visi,
+            photo: fotoInput.files.length > 0 ? URL.createObjectURL(fotoInput.files[0]) : null
+        };
+
+        // Add to data array
+        candidatesData.push(newCandidate);
+        
+        // Update DOM
+        loadCandidatesData();
+        
+        showAlert('Kandidat berhasil ditambahkan!', 'success');
+        closeForm();
+    }
+
+    function addCandidateToDOM(candidate) {
+        // Get the appropriate container based on position
+        const containerId = positionContainerMap[candidate.position];
+        const container = document.getElementById(containerId);
+
+        // Remove empty message if exists
+        const emptyMessage = container.querySelector('.empty-grid-message');
+        if (emptyMessage) {
+            emptyMessage.remove();
+        }
+
+        // Create new candidate card
+        const newCard = document.createElement('div');
+        newCard.className = 'candidate-card';
+        newCard.setAttribute('data-id', candidate.id);
+        
+        // Use placeholder image if no file selected
+        const finalImageSrc = candidate.photo || `https://via.placeholder.com/80x80?text=${candidate.name.substring(0, 1)}`;
+
+        newCard.innerHTML = `
+            <div class="candidate-info">
+                <img src="${finalImageSrc}" alt="${candidate.name}" onerror="this.src='https://via.placeholder.com/80x80?text=${candidate.name.substring(0, 1)}'">
+                <div class="candidate-text">
+                    <h4>${candidate.name}</h4>
+                    <p>Visi : ${candidate.vision}</p>
+                </div>
+            </div>
+            <div class="candidate-actions">
+                <button class="btn-small btn-edit" onclick="editCandidate(${candidate.id})">
+                    <i class="fas fa-edit"></i> Edit
+                </button>
+                <button class="btn-small btn-delete" onclick="deleteCandidate(${candidate.id})">
+                    <i class="fas fa-trash"></i> Hapus
+                </button>
+            </div>
+        `;
+        
+        container.appendChild(newCard);
+    }
+
+    function editCandidate(id) {
+        const candidate = candidatesData.find(c => c.id === id);
+        if (!candidate) return;
+
+        // Fill the form with existing data
+        document.getElementById('nama').value = candidate.name;
+        document.getElementById('jabatan').value = candidate.position;
+        document.getElementById('visi').value = candidate.vision;
+        
+        // Show image preview
+        const preview = document.getElementById('imagePreview');
+        preview.innerHTML = '';
+        if (candidate.photo) {
+            const img = document.createElement('img');
+            img.src = candidate.photo;
+            preview.appendChild(img);
+        }
+
+        // Change form for editing
+        document.getElementById('popupRole').textContent = ' - Edit';
+        document.getElementById('submitButton').innerHTML = '<i class="fas fa-sync-alt"></i> Perbarui';
+        
+        // Store the candidate being edited
+        editingCandidate = id;
+        currentRole = candidate.position;
+        
+        // Open modal
+        document.getElementById('popupForm').classList.add('active');
+    }
+
+    function updateCandidate(id) {
+        const nama = document.getElementById('nama').value.trim();
+        const jabatan = document.getElementById('jabatan').value;
+        const visi = document.getElementById('visi').value.trim();
+        const fotoInput = document.getElementById('foto');
+
+        // Update candidate in data array
+        const index = candidatesData.findIndex(c => c.id === id);
+        if (index !== -1) {
+            candidatesData[index] = {
+                ...candidatesData[index],
+                name: nama,
+                position: jabatan,
+                vision: visi,
+                photo: fotoInput.files.length > 0 ? URL.createObjectURL(fotoInput.files[0]) : candidatesData[index].photo
+            };
+        }
+
+        // Update DOM
+        loadCandidatesData();
+        
+        showAlert('Data kandidat berhasil diperbarui!', 'success');
+        closeForm();
+    }
+
+    function deleteCandidate(id) {
+        const candidate = candidatesData.find(c => c.id === id);
+        if (!candidate) return;
+        
+        if (confirm(`Apakah Anda yakin ingin menghapus kandidat "${candidate.name}"?`)) {
+            // Remove from data array
+            candidatesData = candidatesData.filter(c => c.id !== id);
+            
+            // Update DOM
+            loadCandidatesData();
+            
+            showAlert('Kandidat berhasil dihapus!', 'success');
+        }
+    }
+
+    function showAlert(message, type = 'info') {
+        // Remove existing alerts
+        const existingAlert = document.querySelector('.custom-alert');
+        if (existingAlert) {
+            existingAlert.remove();
+        }
+
+        // Create alert element
+        const alert = document.createElement('div');
+        alert.className = `custom-alert alert-${type}`;
+        alert.innerHTML = `
+            <span>${message}</span>
+            <button class="alert-close" onclick="this.parentElement.remove()">&times;</button>
+        `;
+
+        document.body.appendChild(alert);
+
+        // Auto remove after 5 seconds
+        setTimeout(() => {
+            if (alert.parentElement) {
+                alert.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => alert.remove(), 300);
+            }
+        }, 5000);
+    }
+
+    // Close modal when clicking outside
+    window.addEventListener('click', function(e) {
+        const modal = document.getElementById('popupForm');
+        if (e.target === modal) {
+            closeForm();
+        }
+    });
+  </script>
+</body>
+</html>

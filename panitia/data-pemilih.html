@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SipeL • Data Pemilih</title>
+  <link rel="stylesheet" href="/css/dashboard-panitia.css">
+  <link rel="stylesheet" href="/css/data-pemilih.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <a href="index.html">
+          <img src="/assets/logo-sipel.png.jpg" alt="SipeL Logo" class="logo-img">
+          <span>SipeL</span>
+        </a>
+      </div>
+      
+      <!-- Hamburger Menu -->
+      <div class="hamburger" id="hamburger">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="admin-container">
+    <aside class="sidebar" id="sidebar">
+      <div class="side-logo">Menu</div>
+      <ul>
+        <li><a href="dashboard.html">Beranda</a></li>
+        <li><a href="schedule.html">Jadwal Pemilihan</a></li>
+        <li><a href="data-pemilih.html" class="active">Data Warga</a></li>
+        <li><a href="kandidat.html">Data Kandidat</a></li>
+        <li><a href="rekap.html">Rekap Suara</a></li>
+        <li><a href="hasil.html">Hasil Akhir</a></li>
+      </ul>
+    </aside>
+
+    <!-- Tambahkan overlay untuk mobile -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <main class="main-content">
+      <div class="content-page">
+        <div class="page-header">
+          <h1>Daftar Pemilih</h1>
+          <p>Perumahan Buana Jaya Batam Kota</p>
+        </div>
+
+        <!-- Search and Filter Section -->
+        <div class="search-filter">
+          <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Cari berdasarkan NIK, nama, atau alamat...">
+          </div>
+          <div class="filter-select">
+            <select id="rtFilter">
+              <option value="">Semua RT</option>
+              <option value="001">RT 001</option>
+              <option value="002">RT 002</option>
+              <option value="003">RT 003</option>
+            </select>
+          </div>
+          <div class="filter-select">
+            <select id="rwFilter">
+              <option value="">Semua RW</option>
+              <option value="003">RW 001</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <table class="data-table" id="votersTable">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>NIK</th>
+                <th>Nama</th>
+                <th>Alamat</th>
+                <th>RT</th>
+                <th>RW</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="votersTableBody">
+              <!-- Data akan diisi melalui JavaScript -->
+            </tbody>
+          </table>
+          
+          <!-- Pesan jika tidak ada data -->
+          <div id="noDataMessage" class="no-data-message" style="display: block;">
+            <i class="fas fa-users-slash"></i>
+            <p>Belum ada data pemilih. Silakan tambah data pemilih baru.</p>
+          </div>
+          
+          <div class="actions">
+            <button class="btn btn-secondary" onclick="window.history.back()">
+              <i class="fas fa-arrow-left"></i> Kembali
+            </button>
+            <button class="btn btn-primary" onclick="openAddModal()">
+              <i class="fas fa-plus"></i> Tambah Pemilih
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="footer-content">
+          <p>© 2025 SipeL • Sistem Pemilihan Elektronik RT/RW</p>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Add Voter Modal -->
+  <div class="modal" id="addVoterModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalTitle">Tambah Pemilih Baru</h3>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+      <form id="voterForm">
+        <div class="form-group">
+          <label for="nik">NIK</label>
+          <input type="text" id="nik" required maxlength="16" placeholder="Masukkan NIK (16 digit)">
+        </div>
+        <div class="form-group">
+          <label for="nama">Nama Lengkap</label>
+          <input type="text" id="nama" required placeholder="Masukkan nama lengkap">
+        </div>
+        <div class="form-group">
+          <label for="alamat">Alamat</label>
+          <input type="text" id="alamat" required placeholder="Masukkan alamat lengkap">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="rt">RT</label>
+            <select id="rt" required>
+              <option value="">Pilih RT</option>
+              <option value="001">RT 001</option>
+              <option value="002">RT 002</option>
+              <option value="003">RT 003</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="rw">RW</label>
+            <select id="rw" required>
+              <option value="">Pilih RW</option>
+              <option value="003">RW 001</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" onclick="closeModal()">Batal</button>
+          <button type="submit" class="btn btn-primary" id="modalSubmitButton">
+            <i class="fas fa-save"></i> Simpan
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Data pemilih - KOSONG
+    let votersData = [];
+
+    // Hamburger Menu Toggle untuk data-pemilih page
+    document.addEventListener('DOMContentLoaded', function() {
+        const hamburger = document.getElementById('hamburger');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+        if (hamburger && sidebar) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                sidebar.classList.toggle('active');
+                
+                // Toggle overlay
+                if (sidebarOverlay) {
+                    sidebarOverlay.classList.toggle('active');
+                }
+            });
+
+            // Close sidebar when clicking on overlay
+            if (sidebarOverlay) {
+                sidebarOverlay.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    sidebar.classList.remove('active');
+                    sidebarOverlay.classList.remove('active');
+                });
+            }
+
+            // Close sidebar when clicking on a sidebar link
+            document.querySelectorAll('.sidebar a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    sidebar.classList.remove('active');
+                    if (sidebarOverlay) {
+                        sidebarOverlay.classList.remove('active');
+                    }
+                });
+            });
+
+            // Close sidebar when scrolling on mobile
+            window.addEventListener('scroll', () => {
+                if (window.innerWidth <= 768 && sidebar.classList.contains('active')) {
+                    hamburger.classList.remove('active');
+                    sidebar.classList.remove('active');
+                    if (sidebarOverlay) {
+                        sidebarOverlay.classList.remove('active');
+                    }
+                }
+            });
+        }
+
+        // Load initial data
+        loadVotersData();
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.addEventListener('input', filterTable);
+        }
+
+        // Filter functionality
+        const rtFilter = document.getElementById('rtFilter');
+        const rwFilter = document.getElementById('rwFilter');
+        
+        if (rtFilter) {
+            rtFilter.addEventListener('change', filterTable);
+        }
+        
+        if (rwFilter) {
+            rwFilter.addEventListener('change', filterTable);
+        }
+
+        // Form submission
+        const voterForm = document.getElementById('voterForm');
+        if (voterForm) {
+            voterForm.addEventListener('submit', handleFormSubmit);
+        }
+    });
+
+    let editingRow = null;
+
+    function loadVotersData() {
+        const tableBody = document.getElementById('votersTableBody');
+        const noDataMessage = document.getElementById('noDataMessage');
+        
+        // Clear table
+        tableBody.innerHTML = '';
+        
+        // Tampilkan pesan jika tidak ada data
+        if (votersData.length === 0) {
+            noDataMessage.style.display = 'block';
+            return;
+        } else {
+            noDataMessage.style.display = 'none';
+        }
+        
+        // Isi tabel dengan data
+        votersData.forEach((voter, index) => {
+            const row = document.createElement('tr');
+            
+            row.innerHTML = `
+                <td>${index + 1}</td>
+                <td>${voter.nik}</td>
+                <td>${voter.nama}</td>
+                <td>${voter.alamat}</td>
+                <td>${voter.rt}</td>
+                <td>${voter.rw}</td>
+                <td>
+                    <button class="btn-icon btn-edit" title="Edit" onclick="editVoter(${voter.id})">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn-icon btn-delete" title="Hapus" onclick="deleteVoter(${voter.id})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            `;
+            
+            tableBody.appendChild(row);
+        });
+    }
+
+    function filterTable() {
+        const searchValue = document.getElementById('searchInput').value.toLowerCase();
+        const rtValue = document.getElementById('rtFilter').value;
+        const rwValue = document.getElementById('rwFilter').value;
+        
+        const tableBody = document.getElementById('votersTableBody');
+        const rows = tableBody.getElementsByTagName('tr');
+        
+        for (let i = 0; i < rows.length; i++) {
+            const cells = rows[i].getElementsByTagName('td');
+            const nik = cells[1].textContent.toLowerCase();
+            const nama = cells[2].textContent.toLowerCase();
+            const alamat = cells[3].textContent.toLowerCase();
+            const rt = cells[4].textContent;
+            const rw = cells[5].textContent;
+            
+            const matchesSearch = !searchValue || 
+                nik.includes(searchValue) || 
+                nama.includes(searchValue) || 
+                alamat.includes(searchValue);
+                
+            const matchesRT = !rtValue || rt === rtValue;
+            const matchesRW = !rwValue || rw === rwValue;
+            
+            if (matchesSearch && matchesRT && matchesRW) {
+                rows[i].style.display = '';
+            } else {
+                rows[i].style.display = 'none';
+            }
+        }
+    }
+
+    function openAddModal() {
+        document.getElementById('modalTitle').textContent = 'Tambah Pemilih Baru';
+        document.getElementById('modalSubmitButton').innerHTML = '<i class="fas fa-save"></i> Simpan';
+        document.getElementById('voterForm').reset();
+        editingRow = null;
+        document.getElementById('addVoterModal').classList.add('active');
+    }
+
+    function closeModal() {
+        document.getElementById('addVoterModal').classList.remove('active');
+        editingRow = null;
+    }
+
+    function handleFormSubmit(e) {
+        e.preventDefault();
+        
+        const nik = document.getElementById('nik').value.trim();
+        const nama = document.getElementById('nama').value.trim();
+        const alamat = document.getElementById('alamat').value.trim();
+        const rt = document.getElementById('rt').value;
+        const rw = document.getElementById('rw').value;
+
+        // Validation
+        if (!nik || !nama || !alamat || !rt || !rw) {
+            showAlert('Semua field harus diisi!', 'error');
+            return;
+        }
+
+        if (nik.length !== 16) {
+            showAlert('NIK harus 16 digit!', 'error');
+            return;
+        }
+
+        if (editingRow !== null) {
+            updateVoter(editingRow);
+        } else {
+            addNewVoter();
+        }
+    }
+
+    function addNewVoter() {
+        const nik = document.getElementById('nik').value.trim();
+        const nama = document.getElementById('nama').value.trim();
+        const alamat = document.getElementById('alamat').value.trim();
+        const rt = document.getElementById('rt').value;
+        const rw = document.getElementById('rw').value;
+
+        // Check if NIK already exists
+        const existingVoter = votersData.find(voter => voter.nik === nik);
+        
+        if (existingVoter) {
+            showAlert('NIK sudah terdaftar!', 'error');
+            return;
+        }
+
+        // Create new voter object
+        const newId = votersData.length > 0 ? Math.max(...votersData.map(voter => voter.id)) + 1 : 1;
+        const newVoter = {
+            id: newId,
+            nik: nik,
+            nama: nama,
+            alamat: alamat,
+            rt: rt,
+            rw: rw
+        };
+
+        // Add to data array
+        votersData.push(newVoter);
+        
+        // Reload table
+        loadVotersData();
+        
+        showAlert('Pemilih berhasil ditambahkan!', 'success');
+        closeModal();
+    }
+
+    function editVoter(id) {
+        const voter = votersData.find(v => v.id === id);
+        if (!voter) return;
+        
+        // Fill the form with existing data
+        document.getElementById('nik').value = voter.nik;
+        document.getElementById('nama').value = voter.nama;
+        document.getElementById('alamat').value = voter.alamat;
+        document.getElementById('rt').value = voter.rt;
+        document.getElementById('rw').value = voter.rw;
+        
+        // Change modal for editing
+        document.getElementById('modalTitle').textContent = 'Edit Data Pemilih';
+        document.getElementById('modalSubmitButton').innerHTML = '<i class="fas fa-sync-alt"></i> Perbarui';
+        
+        // Store the ID being edited
+        editingRow = id;
+        
+        // Open modal
+        document.getElementById('addVoterModal').classList.add('active');
+    }
+
+    function updateVoter(id) {
+        const nik = document.getElementById('nik').value.trim();
+        const nama = document.getElementById('nama').value.trim();
+        const alamat = document.getElementById('alamat').value.trim();
+        const rt = document.getElementById('rt').value;
+        const rw = document.getElementById('rw').value;
+
+        // Update voter in data array
+        const index = votersData.findIndex(voter => voter.id === id);
+        if (index !== -1) {
+            votersData[index] = {
+                ...votersData[index],
+                nik: nik,
+                nama: nama,
+                alamat: alamat,
+                rt: rt,
+                rw: rw
+            };
+        }
+        
+        // Reload table
+        loadVotersData();
+        
+        showAlert('Data pemilih berhasil diperbarui!', 'success');
+        closeModal();
+    }
+
+    function deleteVoter(id) {
+        const voter = votersData.find(v => v.id === id);
+        if (!voter) return;
+        
+        if (confirm(`Apakah Anda yakin ingin menghapus data "${voter.nama}"?`)) {
+            // Remove from data array
+            votersData = votersData.filter(v => v.id !== id);
+            
+            // Reload table
+            loadVotersData();
+            
+            showAlert('Data pemilih berhasil dihapus!', 'success');
+        }
+    }
+
+    function showAlert(message, type = 'info') {
+        // Remove existing alerts
+        const existingAlert = document.querySelector('.custom-alert');
+        if (existingAlert) {
+            existingAlert.remove();
+        }
+
+        // Create alert element
+        const alert = document.createElement('div');
+        alert.className = `custom-alert alert-${type}`;
+        alert.innerHTML = `
+            <span>${message}</span>
+            <button class="alert-close" onclick="this.parentElement.remove()">&times;</button>
+        `;
+
+        document.body.appendChild(alert);
+
+        // Auto remove after 5 seconds
+        setTimeout(() => {
+            if (alert.parentElement) {
+                alert.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => alert.remove(), 300);
+            }
+        }, 5000);
+    }
+
+    // Close modal when clicking outside
+    window.addEventListener('click', function(e) {
+        const modal = document.getElementById('addVoterModal');
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SipeL • History Voting</title>
+  <link rel="stylesheet" href="/css/history.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <a href="index.html">
+          <img src="/assets/logo-sipel.png.jpg" alt="SipeL Logo" class="logo-img">
+          <span>SipeL</span>
+        </a>
+      </div>
+      
+      <!-- Hamburger Menu -->
+      <div class="hamburger" id="hamburger">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="admin-container">
+    <aside class="sidebar" id="sidebar">
+      <div class="side-logo">Menu Warga</div>
+      <ul>
+        <li><a href="dashboard.html">Beranda</a></li>
+        <li><a href="jadwal-pemilihan.html">Jadwal Pemilihan</a></li>
+        <li><a href="daftar-kandidat.html">Data Calon</a></li>
+        <li><a href="pilih-kandidat.html">Pilih Kandidat</a></li>
+        <li><a href="history.html" class="active">History Voting</a></li>
+        <li><a href="rekap-sementara.html">Rekap Sementara</a></li>
+        <li><a href="hasil-akhir.html">Hasil Akhir</a></li>
+      </ul>
+    </aside>
+
+    <!-- Tambahkan overlay untuk mobile -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <main class="main-content">
+      <!-- Page Header -->
+      <section class="page-header">
+        <div class="header-content">
+          <h1>History Voting</h1>
+          <h3>Perumahan Buana Jaya Batam Kota</h3>
+          <p>Riwayat penggunaan hak pilih Anda dalam pemilihan RT/RW</p>
+        </div>
+      </section>
+
+      <!-- History Content -->
+      <section class="history-content">
+        <!-- Filter Section -->
+        <div class="filter-section">
+          <div class="filter-group">
+            <label for="tahun-filter">Tahun Pemilihan:</label>
+            <select id="tahun-filter" class="filter-select">
+              <option value="all">Semua Tahun</option>
+              <option value="2025">2025</option>
+              <option value="2024">2024</option>
+              <option value="2023">2023</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="status-filter">Status:</label>
+            <select id="status-filter" class="filter-select">
+              <option value="all">Semua Status</option>
+              <option value="completed">Selesai</option>
+              <option value="ongoing">Berlangsung</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-history">
+          <div class="empty-icon">
+            <i class="fas fa-history"></i>
+          </div>
+          <h2>Belum Ada Riwayat Voting</h2>
+          <p>Anda belum pernah menggunakan hak pilih dalam pemilihan RT/RW</p>
+          <p class="empty-subtext">Riwayat voting akan muncul di sini setelah Anda melakukan pemilihan</p>
+        </div>
+
+        <!-- Statistics Card -->
+        <div class="stats-card">
+          <div class="stat-item">
+            <div class="stat-number">0</div>
+            <div class="stat-label">Total Voting</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">0</div>
+            <div class="stat-label">Pemilihan Diikuti</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">-</div>
+            <div class="stat-label">Status Terakhir</div>
+          </div>
+        </div>
+
+        <!-- Info Section -->
+        <div class="info-section">
+          <div class="info-card">
+            <h3><i class="fas fa-info-circle"></i> Informasi History Voting</h3>
+            <div class="info-content">
+              <p>• History voting menampilkan semua pemilihan yang pernah Anda ikuti</p>
+              <p>• Anda dapat melihat detail pilihan Anda untuk setiap pemilihan</p>
+              <p>• Data voting bersifat rahasia dan hanya dapat dilihat oleh Anda</p>
+              <p>• Riwayat voting akan tersimpan secara permanen dalam sistem</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div class="footer-content">
+          <p>© 2025 SipeL • Sistem Pemilihan Elektronik RT/RW</p>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // Hamburger Menu Toggle
+    document.addEventListener('DOMContentLoaded', function() {
+        const hamburger = document.getElementById('hamburger');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+        if (hamburger && sidebar) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                sidebar.classList.toggle('active');
+                
+                if (sidebarOverlay) {
+                    sidebarOverlay.classList.toggle('active');
+                }
+            });
+
+            if (sidebarOverlay) {
+                sidebarOverlay.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    sidebar.classList.remove('active');
+                    sidebarOverlay.classList.remove('active');
+                });
+            }
+
+            document.querySelectorAll('.sidebar a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    sidebar.classList.remove('active');
+                    if (sidebarOverlay) {
+                        sidebarOverlay.classList.remove('active');
+                    }
+                });
+            });
+
+            window.addEventListener('scroll', () => {
+                if (window.innerWidth <= 768 && sidebar.classList.contains('active')) {
+                    hamburger.classList.remove('active');
+                    sidebar.classList.remove('active');
+                    if (sidebarOverlay) {
+                        sidebarOverlay.classList.remove('active');
+                    }
+                }
+            });
+        }
+
+        // Filter functionality
+        const tahunFilter = document.getElementById('tahun-filter');
+        const statusFilter = document.getElementById('status-filter');
+
+        if (tahunFilter && statusFilter) {
+            tahunFilter.addEventListener('change', updateFilters);
+            statusFilter.addEventListener('change', updateFilters);
+        }
+
+        function updateFilters() {
+            // In a real application, this would filter the history list
+            console.log('Filter updated:', {
+                tahun: tahunFilter.value,
+                status: statusFilter.value
+            });
+        }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SipeL • Dashboard Warga</title>
+  <link rel="stylesheet" href="/css/dashboard-warga.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <a href="index.html">
+          <img src="/assets/logo-sipel.png.jpg" alt="SipeL Logo" class="logo-img">
+          <span>SipeL</span>
+        </a>
+      </div>
+      
+      <!-- Hamburger Menu -->
+      <div class="hamburger" id="hamburger">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="admin-container">
+    <aside class="sidebar" id="sidebar">
+      <div class="side-logo">Menu Warga</div>
+      <ul>
+        <li><a href="dashboard.html" class="active">Beranda</a></li>
+        <li><a href="jadwal-pemilihan.html">Jadwal Pemilihan</a></li>
+        <li><a href="daftar-kandidat.html">Data Calon</a></li>
+        <li><a href="pilih-kandidat.html">Pilih Kandidat</a></li>
+        <li><a href="history.html">History Voting</a></li>
+        <li><a href="rekap-sementara.html">Rekap Sementara</a></li>
+        <li><a href="hasil-akhir.html">Hasil Akhir</a></li>
+      </ul>
+    </aside>
+
+    <!-- Tambahkan overlay untuk mobile -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <main class="main-content">
+      <!-- Hero Section -->
+      <section class="hero" style="background-image: linear-gradient(180deg, rgba(0, 117, 201, 0.3), rgba(0,117,201,0.3)), url('https://www.99.co/id/img-regional/800/800/fit/true/production/image/user/1ba2454f-8241-42d7-8750-56da6941d091/2025-01-07-06-54-53-0e31fd4b-35b7-415d-9e3c-88627c637fcd.jpg');">
+        <div class="overlay-box">
+          <h1>Selamat Datang</h1>
+          <h3>Warga Buana Jaya</h3>
+          <p>Gunakan hak pilihmu di Pemilihan RT/RW</p>
+        </div>
+      </section>
+
+      <!-- Dashboard Stats -->
+      <section class="dashboard-grid">
+        <div class="dashboard-card">
+          <h3>0</h3>
+          <p>Jumlah Pemilih</p>
+        </div>
+        <div class="dashboard-card">
+          <h3>0</h3>
+          <p>Jumlah Kandidat</p>
+        </div>
+        <div class="dashboard-card">
+          <h3><span class="status-badge status-upcoming">Belum</span></h3>
+          <p>Status Pemilihan</p>
+        </div>
+        <div class="dashboard-card">
+          <h3>-</h3>
+          <p>Belum ada pemilihan</p>
+        </div>
+      </section>
+
+      <!-- Quick Actions -->
+      <section class="quick-actions">
+        <h2>Aksi Cepat</h2>
+        <div class="action-buttons">
+          <a href="daftar-kandidat.html" class="action-btn">
+            <i class="fas fa-users"></i>
+            <h4>Lihat Kandidat</h4>
+            <p>Kenali calon RT/RW sebelum memilih</p>
+          </a>
+          <a href="pilih-kandidat.html" class="action-btn">
+            <i class="fas fa-vote-yea"></i>
+            <h4>Pilih Sekarang</h4>
+            <p>Gunakan hak pilih Anda</p>
+          </a>
+          <a href="jadwal-pemilihan.html" class="action-btn">
+            <i class="fas fa-calendar-alt"></i>
+            <h4>Jadwal Pemilihan</h4>
+            <p>Lihat waktu dan tempat pemilihan</p>
+          </a>
+          <a href="rekap-sementara.html" class="action-btn">
+            <i class="fas fa-chart-bar"></i>
+            <h4>Rekap Sementara</h4>
+            <p>Pantau perkembangan hasil pemilihan</p>
+          </a>
+        </div>
+      </section>
+
+      <footer>
+        <div class="footer-content">
+          <p>© 2025 SipeL • Sistem Pemilihan Elektronik RT/RW</p>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // Hamburger Menu Toggle untuk dashboard warga
+    document.addEventListener('DOMContentLoaded', function() {
+        const hamburger = document.getElementById('hamburger');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+        if (hamburger && sidebar) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                sidebar.classList.toggle('active');
+                
+                // Toggle overlay
+                if (sidebarOverlay) {
+                    sidebarOverlay.classList.toggle('active');
+                }
+            });
+
+            // Close sidebar when clicking on overlay
+            if (sidebarOverlay) {
+                sidebarOverlay.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    sidebar.classList.remove('active');
+                    sidebarOverlay.classList.remove('active');
+                });
+            }
+
+            // Close sidebar when clicking on a sidebar link
+            document.querySelectorAll('.sidebar a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    sidebar.classList.remove('active');
+                    if (sidebarOverlay) {
+                        sidebarOverlay.classList.remove('active');
+                    }
+                });
+            });
+
+            // Close sidebar when scrolling on mobile
+            window.addEventListener('scroll', () => {
+                if (window.innerWidth <= 768 && sidebar.classList.contains('active')) {
+                    hamburger.classList.remove('active');
+                    sidebar.classList.remove('active');
+                    if (sidebarOverlay) {
+                        sidebarOverlay.classList.remove('active');
+                    }
+                }
+            });
+        }
+
+        // Update status based on current time (example logic)
+        updateElectionStatus();
+    });
+
+    function updateElectionStatus() {
+        // In a real application, this would check against actual election dates
+        const now = new Date();
+        const electionStart = new Date('2026-02-18T08:00:00'); // Example start date
+        const electionEnd = new Date('2026-02-18T16:00:00'); // Example end date
+        
+        const statusElement = document.querySelector('.status-badge');
+        
+        if (now < electionStart) {
+            statusElement.textContent = 'Belum';
+            statusElement.className = 'status-badge status-upcoming';
+        } else if (now >= electionStart && now <= electionEnd) {
+            statusElement.textContent = 'Berlangsung';
+            statusElement.className = 'status-badge status-active';
+        } else {
+            statusElement.textContent = 'Selesai';
+            statusElement.className = 'status-badge status-completed';
+        }
+    }
+
+    // Simulate real-time updates for demonstration
+    setInterval(() => {
+        // In a real application, this would fetch updated data from an API
+        const voterCount = document.querySelector('.dashboard-card:nth-child(1) h3');
+        const randomChange = Math.floor(Math.random() * 3) - 1; // -1, 0, or 1
+        const currentCount = parseInt(voterCount.textContent);
+        
+        if (randomChange !== 0 && currentCount + randomChange >= 250 && currentCount + randomChange <= 260) {
+            voterCount.textContent = currentCount + randomChange;
+            
+            // Add visual feedback
+            voterCount.style.color = randomChange > 0 ? '#28a745' : '#dc3545';
+            setTimeout(() => {
+                voterCount.style.color = '';
+            }, 1000);
+        }
+    }, 10000); // Update every 10 seconds
+  </script>
+</body>
+</html>

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SipeL • Hasil Akhir</title>
+  <link rel="stylesheet" href="/css/dashboard-panitia.css">
+  <link rel="stylesheet" href="/css/hasil.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <a href="index.html">
+          <img src="/assets/logo-sipel.png.jpg" alt="SipeL Logo" class="logo-img">
+          <span>SipeL</span>
+        </a>
+      </div>
+      
+      <!-- Hamburger Menu -->
+      <div class="hamburger" id="hamburger">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="admin-container">
+    <aside class="sidebar" id="sidebar">
+      <div class="side-logo">Menu</div>
+      <ul>
+        <li><a href="dashboard.html">Beranda</a></li>
+        <li><a href="schedule.html">Jadwal Pemilihan</a></li>
+        <li><a href="data-pemilih.html">Data Warga</a></li>
+        <li><a href="kandidat.html">Data Kandidat</a></li>
+        <li><a href="rekap.html">Rekap Suara</a></li>
+        <li><a href="hasil.html" class="active">Hasil Akhir</a></li>
+      </ul>
+    </aside>
+
+    <!-- Tambahkan overlay untuk mobile -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <main class="main-content">
+      <div class="content-page">
+        <div class="page-header">
+          <h1>Hasil Akhir Pemilihan</h1>
+          <p>Pemilihan RT/RW Perumahan Buana Jaya Batam Kota</p>
+        </div>
+
+        <!-- Winner Announcement -->
+        <div class="winner-announcement">
+          <div class="winner-badge">
+            <i class="fas fa-trophy"></i> PEMENANG PEMILIHAN
+          </div>
+          <h2>Menunggu Pengumuman</h2>
+          <div class="winner-info">
+            <div class="winner-name">-</div>
+            <div class="winner-position">Pemilihan Belum Selesai</div>
+            <div class="winner-votes">Proses penghitungan sedang berlangsung</div>
+          </div>
+        </div>
+
+        <!-- Final Results Summary -->
+        <div class="final-summary">
+          <h3>Ringkasan Hasil Akhir</h3>
+          <div class="summary-grid">
+            <div class="summary-item">
+              <h4>0</h4>
+              <p>Pemilih Terdaftar</p>
+            </div>
+            <div class="summary-item">
+              <h4>0</h4>
+              <p>Pemilih Menggunakan Hak</p>
+            </div>
+            <div class="summary-item">
+              <h4>0%</h4>
+              <p>Tingkat Partisipasi</p>
+            </div>
+            <div class="summary-item">
+              <h4>0</h4>
+              <p>Kandidat</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts Container -->
+        <div class="charts-container">
+          <div class="chart-card">
+            <div class="donut-container">
+              <div class="donut" style="background: conic-gradient(#e0e0e0 0deg 360deg);"></div>
+            </div>
+            <h4>RT 001</h4>
+            <ul class="candidate-list">
+              <li>Belum ada data <span class="vote-count">0 suara (0%)</span></li>
+              <li>Belum ada data <span class="vote-count">0 suara (0%)</span></li>
+              <li>Belum ada data <span class="vote-count">0 suara (0%)</span></li>
+            </ul>
+          </div>
+          
+          <div class="chart-card">
+            <div class="donut-container">
+              <div class="donut" style="background: conic-gradient(#e0e0e0 0deg 360deg);"></div>
+            </div>
+            <h4>RT 002</h4>
+            <ul class="candidate-list">
+              <li>Belum ada data <span class="vote-count">0 suara (0%)</span></li>
+              <li>Belum ada data <span class="vote-count">0 suara (0%)</span></li>
+              <li>Belum ada data <span class="vote-count">0 suara (0%)</span></li>
+            </ul>
+          </div>
+          
+          <div class="chart-card">
+            <div class="donut-container">
+              <div class="donut" style="background: conic-gradient(#e0e0e0 0deg 360deg);"></div>
+            </div>
+            <h4>RT 003</h4>
+            <ul class="candidate-list">
+              <li>Belum ada data <span class="vote-count">0 suara (0%)</span></li>
+              <li>Belum ada data <span class="vote-count">0 suara (0%)</span></li>
+              <li>Belum ada data <span class="vote-count">0 suara (0%)</span></li>
+            </ul>
+          </div>
+          
+          <div class="chart-card">
+            <div class="donut-container">
+              <div class="donut" style="background: conic-gradient(#e0e0e0 0deg 360deg);"></div>
+            </div>
+            <h4>RW 001</h4>
+            <ul class="candidate-list">
+              <li>Belum ada data <span class="vote-count">0 suara (0%)</span></li>
+              <li>Belum ada data <span class="vote-count">0 suara (0%)</span></li>
+              <li>Belum ada data <span class="vote-count">0 suara (0%)</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Congratulatory Message -->
+        <div class="congrats-message">
+          <p>Hasil akhir akan diumumkan setelah proses pemilihan selesai dan semua suara telah dihitung</p>
+        </div>
+
+        <!-- Export Section -->
+        <div class="export-section">
+          <h3>Ekspor Hasil Akhir</h3>
+          <div class="export-actions">
+            <button class="btn-export pdf" onclick="exportData('pdf')">
+              <i class="fas fa-file-pdf"></i> Cetak PDF
+            </button>
+            <button class="btn-export excel" onclick="exportData('excel')">
+              <i class="fas fa-file-excel"></i> Ekspor ke Excel
+            </button>
+            <button class="btn-export" onclick="printResults()">
+              <i class="fas fa-print"></i> Cetak Laporan
+            </button>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-secondary" onclick="window.history.back()">
+            <i class="fas fa-arrow-left"></i> Kembali
+          </button>
+          <button class="btn btn-primary" onclick="shareResults()">
+            <i class="fas fa-share-alt"></i> Bagikan Hasil
+          </button>
+        </div>
+      </div>
+
+      <footer>
+        <div class="footer-content">
+          <p>© 2025 SipeL • Sistem Pemilihan Elektronik RT/RW</p>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // Hamburger Menu Toggle untuk hasil page
+    document.addEventListener('DOMContentLoaded', function() {
+        const hamburger = document.getElementById('hamburger');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+        if (hamburger && sidebar) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                sidebar.classList.toggle('active');
+                
+                // Toggle overlay
+                if (sidebarOverlay) {
+                    sidebarOverlay.classList.toggle('active');
+                }
+            });
+
+            // Close sidebar when clicking on overlay
+            if (sidebarOverlay) {
+                sidebarOverlay.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    sidebar.classList.remove('active');
+                    sidebarOverlay.classList.remove('active');
+                });
+            }
+
+            // Close sidebar when clicking on a sidebar link
+            document.querySelectorAll('.sidebar a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    sidebar.classList.remove('active');
+                    if (sidebarOverlay) {
+                        sidebarOverlay.classList.remove('active');
+                    }
+                });
+            });
+
+            // Close sidebar when scrolling on mobile
+            window.addEventListener('scroll', () => {
+                if (window.innerWidth <= 768 && sidebar.classList.contains('active')) {
+                    hamburger.classList.remove('active');
+                    sidebar.classList.remove('active');
+                    if (sidebarOverlay) {
+                        sidebarOverlay.classList.remove('active');
+                    }
+                }
+            });
+        }
+    });
+
+    function exportData(format) {
+        // In a real application, this would generate and download the file
+        let message = '';
+        
+        if (format === 'pdf') {
+            message = 'Hasil akhir berhasil diekspor ke PDF!';
+        } else if (format === 'excel') {
+            message = 'Hasil akhir berhasil diekspor ke Excel!';
+        }
+        
+        showAlert(message, 'success');
+        
+        // Simulate file download
+        setTimeout(() => {
+            showAlert('File berhasil diunduh!', 'info');
+        }, 1500);
+    }
+
+    function printResults() {
+        window.print();
+    }
+
+    function shareResults() {
+        // In a real application, this would use the Web Share API or copy to clipboard
+        if (navigator.share) {
+            navigator.share({
+                title: 'Hasil Akhir Pemilihan RT/RW Perumahan Buana Jaya',
+                text: 'Hasil akhir pemilihan RT/RW Perumahan Buana Jaya Batam Kota akan segera diumumkan.',
+                url: window.location.href
+            })
+            .then(() => showAlert('Informasi berhasil dibagikan!', 'success'))
+            .catch(() => showAlert('Berbagi dibatalkan', 'info'));
+        } else {
+            // Fallback: copy to clipboard
+            const textArea = document.createElement('textarea');
+            textArea.value = `Hasil Akhir Pemilihan RT/RW Perumahan Buana Jaya Batam Kota\n\nHasil akhir akan diumumkan setelah proses pemilihan selesai dan semua suara telah dihitung.`;
+            
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            showAlert('Informasi telah disalin ke clipboard!', 'success');
+        }
+    }
+
+    function showAlert(message, type = 'info') {
+        // Remove existing alerts
+        const existingAlert = document.querySelector('.custom-alert');
+        if (existingAlert) {
+            existingAlert.remove();
+        }
+
+        // Create alert element
+        const alert = document.createElement('div');
+        alert.className = `custom-alert alert-${type}`;
+        alert.innerHTML = `
+            <span>${message}</span>
+            <button class="alert-close" onclick="this.parentElement.remove()">&times;</button>
+        `;
+
+        document.body.appendChild(alert);
+
+        // Auto remove after 5 seconds
+        setTimeout(() => {
+            if (alert.parentElement) {
+                alert.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => alert.remove(), 300);
+            }
+        }, 5000);
+    }
+
+    // Add CSS for alerts if not already present
+    if (!document.querySelector('#alert-styles')) {
+        const style = document.createElement('style');
+        style.id = 'alert-styles';
+        style.textContent = `
+            .custom-alert {
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                color: white;
+                font-weight: 500;
+                z-index: 10001;
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                animation: slideInRight 0.3s ease;
+            }
+            .alert-success { background-color: #28a745; }
+            .alert-error { background-color: #dc3545; }
+            .alert-warning { background-color: #ffc107; color: #212529; }
+            .alert-info { background-color: #17a2b8; }
+            .alert-close {
+                background: none;
+                border: none;
+                color: inherit;
+                font-size: 1.2rem;
+                cursor: pointer;
+                padding: 0;
+                width: 20px;
+                height: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            @keyframes slideInRight {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOutRight {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+  </script>
+</body>
+</html>

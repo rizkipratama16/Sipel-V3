@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SipeL • Jadwal Pemilihan</title>
+  <link rel="stylesheet" href="/css/dashboard-panitia.css">
+  <link rel="stylesheet" href="/css/schedule.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <a href="index.html">
+          <img src="/assets/logo-sipel.png.jpg" alt="SipeL Logo" class="logo-img">
+          <span>SipeL</span>
+        </a>
+      </div>
+      
+      <!-- Hamburger Menu -->
+      <div class="hamburger" id="hamburger">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="admin-container">
+    <aside class="sidebar" id="sidebar">
+      <div class="side-logo">Menu</div>
+      <ul>
+        <li><a href="dashboard.html">Beranda</a></li>
+        <li><a href="schedule.html" class="active">Jadwal Pemilihan</a></li>
+        <li><a href="data-pemilih.html">Data Warga</a></li>
+        <li><a href="kandidat.html">Data Kandidat</a></li>
+        <li><a href="rekap.html">Rekap Suara</a></li>
+        <li><a href="hasil.html">Hasil Akhir</a></li>
+      </ul>
+    </aside>
+
+    <!-- Tambahkan overlay untuk mobile -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <main class="main-content">
+      <div class="content-page">
+        <div class="page-header">
+          <h1>Jadwal Pemilihan RT & RW</h1>
+          <p>Perumahan Buana Jaya Batam Kota</p>
+        </div>
+
+        <!-- Filter untuk memilih periode yang aktif -->
+        <div class="filter-section">
+          <div class="form-group">
+            <label for="activePeriodFilter">Lihat Jadwal Periode:</label>
+            <select id="activePeriodFilter" onchange="filterScheduleTable()">
+              <option value="all">Semua Periode</option>
+              <option value="RT 001">RT 001</option>
+              <option value="RT 002">RT 002</option>
+              <option value="RT 003">RT 003</option>
+              <option value="RW 001">RW 001</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Info Card untuk periode yang aktif - BISA BERUBAH -->
+        <div class="active-periods-container" id="activePeriodsContainer">
+          <!-- Info card akan diisi oleh JavaScript -->
+        </div>
+
+        <div class="form-card">
+          <h3 id="formTitle">Tambah Jadwal Pemilihan Baru</h3>
+          
+          <div class="form-group">
+            <label for="periodeName">Nama Periode</label>
+            <select id="periodeName">
+              <option value="">Pilih Periode</option>
+              <option value="RT 001 Periode 2026">RT 001 Periode 2026</option>
+              <option value="RT 002 Periode 2026">RT 002 Periode 2026</option>
+              <option value="RT 003 Periode 2026">RT 003 Periode 2026</option>
+              <option value="RW 001 Periode 2026">RW 001 Periode 2026</option>
+              <option value="RT 001 Periode 2025">RT 001 Periode 2025</option>
+              <option value="RT 002 Periode 2025">RT 002 Periode 2025</option>
+              <option value="RT 003 Periode 2025">RT 003 Periode 2025</option>
+              <option value="RW 001 Periode 2025">RW 001 Periode 2025</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="tanggalMulai">Tanggal Mulai</label>
+              <input type="date" id="tanggalMulai">
+            </div>
+            <div class="form-group">
+              <label for="tanggalSelesai">Tanggal Selesai</label>
+              <input type="date" id="tanggalSelesai">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="jamMulai">Jam Mulai</label>
+              <input type="time" id="jamMulai" value="08:00">
+            </div>
+            <div class="form-group">
+              <label for="jamSelesai">Jam Selesai</label>
+              <input type="time" id="jamSelesai" value="14:00">
+            </div>
+          </div>
+
+          <div class="table-container">
+            <h4>Daftar Jadwal Pemilihan</h4>
+            <div class="table-card">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Periode</th>
+                    <th>Tanggal</th>
+                    <th>Jam Mulai</th>
+                    <th>Jam Selesai</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="scheduleTableBody">
+                  <!-- Data akan diisi oleh JavaScript -->
+                </tbody>
+              </table>
+            </div>
+            
+            <!-- Pesan jika tidak ada jadwal -->
+            <div id="noScheduleMessage" class="no-data-message" style="display: none;">
+              <i class="fas fa-calendar-times"></i>
+              <p>Belum ada jadwal pemilihan. Silakan tambah jadwal baru.</p>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn btn-secondary" onclick="resetForm()">
+              <i class="fas fa-times"></i> Batal
+            </button>
+            <button class="btn btn-primary" id="submitButton" onclick="handleSubmit()">
+              <i class="fas fa-save"></i> Simpan Jadwal
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="footer-content">
+          <p>© 2025 SipeL • Sistem Pemilihan Elektronik RT/RW</p>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+      <script>
+        // Data jadwal pemilihan - KOSONG
+        let scheduleData = [];
+    
+        let editingRow = null;
+    
+        // Inisialisasi halaman
+        document.addEventListener('DOMContentLoaded', function() {
+          // Hamburger Menu Toggle
+          const hamburger = document.getElementById('hamburger');
+          const sidebar = document.getElementById('sidebar');
+          const sidebarOverlay = document.getElementById('sidebar-overlay');
+    
+          if (hamburger && sidebar) {
+            hamburger.addEventListener('click', () => {
+              hamburger.classList.toggle('active');
+              sidebar.classList.toggle('active');
+              
+              if (sidebarOverlay) {
+                sidebarOverlay.classList.toggle('active');
+              }
+            });
+    
+            if (sidebarOverlay) {
+              sidebarOverlay.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                sidebar.classList.remove('active');
+                sidebarOverlay.classList.remove('active');
+              });
+            }
+    
+            document.querySelectorAll('.sidebar a').forEach(link => {
+              link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                sidebar.classList.remove('active');
+                if (sidebarOverlay) {
+                  sidebarOverlay.classList.remove('active');
+                }
+              });
+            });
+    
+            window.addEventListener('scroll', () => {
+              if (window.innerWidth <= 768 && sidebar.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                sidebar.classList.remove('active');
+                if (sidebarOverlay) {
+                  sidebarOverlay.classList.remove('active');
+                }
+              }
+            });
+          }
+    
+          // Initialize date inputs with current date as minimum
+          const today = new Date().toISOString().split('T')[0];
+          const tanggalMulai = document.getElementById('tanggalMulai');
+          const tanggalSelesai = document.getElementById('tanggalSelesai');
+          
+          if (tanggalMulai) {
+            tanggalMulai.min = today;
+          }
+          
+          if (tanggalSelesai) {
+            tanggalSelesai.min = today;
+          }
+    
+          // Load schedule data
+          loadScheduleData();
+          updateActivePeriodsInfo();
+          
+          // Auto update status setiap menit
+          setInterval(() => {
+            updateAllStatuses();
+            updateActivePeriodsInfo();
+          }, 60000);
+        });
+    
+        // Memuat data jadwal ke tabel
+        function loadScheduleData(filter = 'all') {
+          const tableBody = document.getElementById('scheduleTableBody');
+          const noScheduleMessage = document.getElementById('noScheduleMessage');
+          
+          // Clear table
+          tableBody.innerHTML = '';
+          
+          // Filter data jika diperlukan
+          let filteredData = scheduleData;
+          if (filter !== 'all') {
+            filteredData = scheduleData.filter(item => item.periode.includes(filter));
+          }
+          
+          // Tampilkan pesan jika tidak ada data
+          if (filteredData.length === 0) {
+            noScheduleMessage.style.display = 'block';
+            return;
+          } else {
+            noScheduleMessage.style.display = 'none';
+          }
+          
+          // Isi tabel dengan data
+          filteredData.forEach((item, index) => {
+            const row = document.createElement('tr');
+            const formattedDate = formatDateForDisplay(item.tanggalMulai);
+            
+            // Tentukan status badge
+            let statusBadge = '';
+            if (item.status === 'active') {
+              statusBadge = '<span class="status-badge status-active">Berjalan</span>';
+            } else if (item.status === 'completed') {
+              statusBadge = '<span class="status-badge status-completed">Selesai</span>';
+            } else {
+              statusBadge = '<span class="status-badge status-upcoming">Akan Datang</span>';
+            }
+            
+            row.innerHTML = `
+              <td>${index + 1}</td>
+              <td>${item.periode}</td>
+              <td>${formattedDate}</td>
+              <td>${item.jamMulai} WIB</td>
+              <td>${item.jamSelesai} WIB</td>
+              <td>${statusBadge}</td>
+              <td>
+                <button class="btn-icon btn-edit" title="Edit" onclick="editSchedule(${item.id})">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn-icon btn-delete" title="Hapus" onclick="deleteSchedule(${item.id})">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </td>
+            `;
+            
+            tableBody.appendChild(row);
+          });
+        }
+    
+        // Filter tabel berdasarkan periode
+        function filterScheduleTable() {
+          const filter = document.getElementById('activePeriodFilter').value;
+          loadScheduleData(filter);
+        }
+    
+        // Update semua status berdasarkan waktu saat ini
+        function updateAllStatuses() {
+          const now = new Date();
+          
+          scheduleData.forEach(item => {
+            const startDate = new Date(item.tanggalMulai + 'T' + item.jamMulai);
+            const endDate = new Date(item.tanggalSelesai + 'T' + item.jamSelesai);
+            
+            if (now >= startDate && now <= endDate) {
+              item.status = 'active';
+            } else if (now > endDate) {
+              item.status = 'completed';
+            } else {
+              item.status = 'upcoming';
+            }
+          });
+          
+          // Reload table jika ada perubahan
+          loadScheduleData(document.getElementById('activePeriodFilter').value);
+        }
+    
+        // Update info periode aktif - BISA MULTIPLE
+        function updateActivePeriodsInfo() {
+          const now = new Date();
+          const activePeriodsContainer = document.getElementById('activePeriodsContainer');
+          
+          // Clear container
+          activePeriodsContainer.innerHTML = '';
+          
+          // Cari semua periode yang sedang berjalan
+          const activePeriods = scheduleData.filter(item => {
+            const startDate = new Date(item.tanggalMulai + 'T' + item.jamMulai);
+            const endDate = new Date(item.tanggalSelesai + 'T' + item.jamSelesai);
+            return now >= startDate && now <= endDate;
+          });
+          
+          if (activePeriods.length === 0) {
+            // Tidak ada jadwal aktif
+            const noActiveCard = document.createElement('div');
+            noActiveCard.className = 'info-card';
+            noActiveCard.innerHTML = `
+              <h4>Tidak Ada Pemilihan Sedang Berlangsung</h4>
+              <div class="info-row">
+                <strong>Status :</strong> 
+                <span class="status-badge status-upcoming">Belum ada jadwal pemilihan</span>
+              </div>
+            `;
+            activePeriodsContainer.appendChild(noActiveCard);
+          } else {
+            // Tampilkan semua periode aktif
+            activePeriods.forEach((period, index) => {
+              const periodCard = document.createElement('div');
+              periodCard.className = 'info-card';
+              periodCard.innerHTML = `
+                <h4>Periode Pemilihan Aktif: ${period.periode}</h4>
+                <div class="info-row">
+                  <strong>Waktu Mulai :</strong> 
+                  <span>${formatDateForDisplay(period.tanggalMulai)} ${period.jamMulai} WIB</span>
+                </div>
+                <div class="info-row">
+                  <strong>Waktu Selesai :</strong> 
+                  <span>${formatDateForDisplay(period.tanggalSelesai)} ${period.jamSelesai} WIB</span>
+                </div>
+                <div class="info-row">
+                  <strong>Status :</strong> 
+                  <span class="status-badge status-active">Berjalan</span>
+                </div>
+                ${index < activePeriods.length - 1 ? '<div class="card-separator"></div>' : ''}
+              `;
+              activePeriodsContainer.appendChild(periodCard);
+            });
+          }
+        }
+    
+        function handleSubmit() {
+          const periodeName = document.getElementById('periodeName').value;
+          const tanggalMulai = document.getElementById('tanggalMulai').value;
+          const tanggalSelesai = document.getElementById('tanggalSelesai').value;
+          const jamMulai = document.getElementById('jamMulai').value;
+          const jamSelesai = document.getElementById('jamSelesai').value;
+    
+          // Validation
+          if (!periodeName) {
+            showAlert('Nama periode harus dipilih', 'error');
+            return;
+          }
+    
+          if (!tanggalMulai || !tanggalSelesai) {
+            showAlert('Tanggal mulai dan selesai harus diisi', 'error');
+            return;
+          }
+    
+          if (!jamMulai || !jamSelesai) {
+            showAlert('Jam mulai dan selesai harus diisi', 'error');
+            return;
+          }
+    
+          if (new Date(tanggalSelesai) < new Date(tanggalMulai)) {
+            showAlert('Tanggal selesai tidak boleh sebelum tanggal mulai', 'error');
+            return;
+          }
+    
+          // Cek apakah periode sudah ada
+          if (editingRow === null) {
+            const existingSchedule = scheduleData.find(item => 
+              item.periode === periodeName && item.id !== editingRow
+            );
+            
+            if (existingSchedule) {
+              showAlert('Periode ini sudah memiliki jadwal. Silakan edit jadwal yang sudah ada.', 'error');
+              return;
+            }
+          }
+    
+          if (editingRow !== null) {
+            // Update existing schedule
+            updateSchedule(editingRow);
+          } else {
+            // Add new schedule
+            addNewSchedule();
+          }
+        }
+    
+        function addNewSchedule() {
+          const periodeName = document.getElementById('periodeName').value;
+          const tanggalMulai = document.getElementById('tanggalMulai').value;
+          const tanggalSelesai = document.getElementById('tanggalSelesai').value;
+          const jamMulai = document.getElementById('jamMulai').value;
+          const jamSelesai = document.getElementById('jamSelesai').value;
+    
+          // Tentukan status berdasarkan tanggal
+          const now = new Date();
+          const startDate = new Date(tanggalMulai + 'T' + jamMulai);
+          const endDate = new Date(tanggalSelesai + 'T' + jamSelesai);
+          
+          let status = 'upcoming';
+          if (now >= startDate && now <= endDate) {
+            status = 'active';
+          } else if (now > endDate) {
+            status = 'completed';
+          }
+    
+          // Create new schedule object
+          const newId = scheduleData.length > 0 ? Math.max(...scheduleData.map(item => item.id)) + 1 : 1;
+          const newSchedule = {
+            id: newId,
+            periode: periodeName,
+            tanggalMulai: tanggalMulai,
+            tanggalSelesai: tanggalSelesai,
+            jamMulai: jamMulai,
+            jamSelesai: jamSelesai,
+            status: status
+          };
+    
+          // Add to data array
+          scheduleData.push(newSchedule);
+          
+          // Reload table dan update info
+          loadScheduleData();
+          updateActivePeriodsInfo();
+          
+          showAlert('Jadwal berhasil ditambahkan!', 'success');
+          resetForm();
+        }
+    
+        function editSchedule(id) {
+          const schedule = scheduleData.find(item => item.id === id);
+          if (!schedule) return;
+    
+          // Fill the form with existing data
+          document.getElementById('periodeName').value = schedule.periode;
+          document.getElementById('tanggalMulai').value = schedule.tanggalMulai;
+          document.getElementById('tanggalSelesai').value = schedule.tanggalSelesai;
+          document.getElementById('jamMulai').value = schedule.jamMulai;
+          document.getElementById('jamSelesai').value = schedule.jamSelesai;
+          
+          // Change form title and button
+          document.getElementById('formTitle').textContent = 'Edit Jadwal Pemilihan';
+          const submitButton = document.getElementById('submitButton');
+          submitButton.innerHTML = '<i class="fas fa-sync-alt"></i> Perbarui Jadwal';
+          
+          // Store the ID being edited
+          editingRow = id;
+          
+          showAlert('Mode edit diaktifkan. Silakan perbarui data jadwal.', 'info');
+          
+          // Scroll to form
+          document.querySelector('.form-card').scrollIntoView({ 
+            behavior: 'smooth' 
+          });
+        }
+    
+        function updateSchedule(id) {
+          const periodeName = document.getElementById('periodeName').value;
+          const tanggalMulai = document.getElementById('tanggalMulai').value;
+          const tanggalSelesai = document.getElementById('tanggalSelesai').value;
+          const jamMulai = document.getElementById('jamMulai').value;
+          const jamSelesai = document.getElementById('jamSelesai').value;
+    
+          // Tentukan status berdasarkan tanggal
+          const now = new Date();
+          const startDate = new Date(tanggalMulai + 'T' + jamMulai);
+          const endDate = new Date(tanggalSelesai + 'T' + jamSelesai);
+          
+          let status = 'upcoming';
+          if (now >= startDate && now <= endDate) {
+            status = 'active';
+          } else if (now > endDate) {
+            status = 'completed';
+          }
+    
+          // Update schedule in data array
+          const index = scheduleData.findIndex(item => item.id === id);
+          if (index !== -1) {
+            scheduleData[index] = {
+              ...scheduleData[index],
+              periode: periodeName,
+              tanggalMulai: tanggalMulai,
+              tanggalSelesai: tanggalSelesai,
+              jamMulai: jamMulai,
+              jamSelesai: jamSelesai,
+              status: status
+            };
+          }
+          
+          // Reload table dan update info
+          loadScheduleData();
+          updateActivePeriodsInfo();
+          
+          showAlert('Jadwal berhasil diperbarui!', 'success');
+          resetForm();
+        }
+    
+        function deleteSchedule(id) {
+          const schedule = scheduleData.find(item => item.id === id);
+          if (!schedule) return;
+          
+          if (confirm(`Apakah Anda yakin ingin menghapus jadwal "${schedule.periode}"?`)) {
+            // Remove from data array
+            scheduleData = scheduleData.filter(item => item.id !== id);
+            
+            // Reload table dan update info
+            loadScheduleData();
+            updateActivePeriodsInfo();
+            
+            showAlert('Jadwal berhasil dihapus!', 'success');
+          }
+        }
+    
+        function resetForm() {
+          document.getElementById('periodeName').value = '';
+          document.getElementById('tanggalMulai').value = '';
+          document.getElementById('tanggalSelesai').value = '';
+          document.getElementById('jamMulai').value = '08:00';
+          document.getElementById('jamSelesai').value = '14:00';
+          
+          // Reset form title and button
+          document.getElementById('formTitle').textContent = 'Tambah Jadwal Pemilihan Baru';
+          const submitButton = document.getElementById('submitButton');
+          submitButton.innerHTML = '<i class="fas fa-save"></i> Simpan Jadwal';
+          
+          editingRow = null;
+        }
+    
+        function formatDateForDisplay(dateString) {
+          const date = new Date(dateString);
+          const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+          return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+        }
+    
+        function showAlert(message, type = 'info') {
+          // Remove existing alerts
+          const existingAlert = document.querySelector('.custom-alert');
+          if (existingAlert) {
+            existingAlert.remove();
+          }
+    
+          // Create alert element
+          const alert = document.createElement('div');
+          alert.className = `custom-alert alert-${type}`;
+          alert.innerHTML = `
+            <span>${message}</span>
+            <button class="alert-close" onclick="this.parentElement.remove()">&times;</button>
+          `;
+    
+          document.body.appendChild(alert);
+    
+          // Auto remove after 5 seconds
+          setTimeout(() => {
+            if (alert.parentElement) {
+              alert.style.animation = 'slideOutRight 0.3s ease';
+              setTimeout(() => alert.remove(), 300);
+            }
+          }, 5000);
+        }
+    </script>
+</body>
+</html>

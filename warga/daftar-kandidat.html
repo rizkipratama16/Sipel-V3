@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SipeL • Data Calon</title>
+  <link rel="stylesheet" href="/css/daftar-kandidat.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <a href="index.html">
+          <img src="/assets/logo-sipel.png.jpg" alt="SipeL Logo" class="logo-img">
+          <span>SipeL</span>
+        </a>
+      </div>
+      
+      <!-- Hamburger Menu -->
+      <div class="hamburger" id="hamburger">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="admin-container">
+    <aside class="sidebar" id="sidebar">
+      <div class="side-logo">Menu Warga</div>
+      <ul>
+        <li><a href="dashboard.html">Beranda</a></li>
+        <li><a href="jadwal-pemilihan.html">Jadwal Pemilihan</a></li>
+        <li><a href="daftar-kandidat.html" class="active">Data Calon</a></li>
+        <li><a href="pilih-kandidat.html">Pilih Kandidat</a></li>
+        <li><a href="history.html">History Voting</a></li>
+        <li><a href="rekap-sementara.html">Rekap Sementara</a></li>
+        <li><a href="hasil-akhir.html">Hasil Akhir</a></li>
+      </ul>
+    </aside>
+
+    <!-- Tambahkan overlay untuk mobile -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <main class="main-content">
+      <!-- Page Header -->
+      <section class="page-header">
+        <div class="header-content">
+          <h1>Calon Kandidat</h1>
+          <h3>Perumahan Buana Jaya Batam Kota</h3>
+          <p>Kenali calon RT/RW sebelum menggunakan hak pilih Anda</p>
+        </div>
+      </section>
+
+      <!-- Candidate Content -->
+      <section class="candidate-content">
+        <div class="filter-section">
+          <div class="filter-group">
+            <label for="jabatan-filter">Pilih Jabatan:</label>
+            <select id="jabatan-filter" class="filter-select">
+              <option value="all">Semua Jabatan</option>
+              <option value="rt001">RT 001</option>
+              <option value="rt002">RT 002</option>
+              <option value="rt003">RT 003</option>
+              <option value="rw001">RW 001</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Candidates Grid -->
+        <div class="candidates-grid">
+          <!-- RT 001 -->
+          <div class="jabatan-section" data-jabatan="rt001">
+            <div class="jabatan-header">
+              <h2>RT 001</h2>
+              <span class="kandidat-count">0 Kandidat</span>
+            </div>
+            <div class="empty-candidates">
+              <i class="fas fa-users"></i>
+              <h3>Belum ada kandidat</h3>
+              <p>Data calon untuk RT 001 akan ditampilkan di sini setelah pendaftaran dibuka</p>
+            </div>
+          </div>
+
+          <!-- RT 002 -->
+          <div class="jabatan-section" data-jabatan="rt002">
+            <div class="jabatan-header">
+              <h2>RT 002</h2>
+              <span class="kandidat-count">0 Kandidat</span>
+            </div>
+            <div class="empty-candidates">
+              <i class="fas fa-users"></i>
+              <h3>Belum ada kandidat</h3>
+              <p>Data calon untuk RT 002 akan ditampilkan di sini setelah pendaftaran dibuka</p>
+            </div>
+          </div>
+
+          <!-- RT 003 -->
+          <div class="jabatan-section" data-jabatan="rt003">
+            <div class="jabatan-header">
+              <h2>RT 003</h2>
+              <span class="kandidat-count">0 Kandidat</span>
+            </div>
+            <div class="empty-candidates">
+              <i class="fas fa-users"></i>
+              <h3>Belum ada kandidat</h3>
+              <p>Data calon untuk RT 003 akan ditampilkan di sini setelah pendaftaran dibuka</p>
+            </div>
+          </div>
+
+          <!-- RW 001 -->
+          <div class="jabatan-section" data-jabatan="rw001">
+            <div class="jabatan-header">
+              <h2>RW 001</h2>
+              <span class="kandidat-count">0 Kandidat</span>
+            </div>
+            <div class="empty-candidates">
+              <i class="fas fa-users"></i>
+              <h3>Belum ada kandidat</h3>
+              <p>Data calon untuk RW 001 akan ditampilkan di sini setelah pendaftaran dibuka</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div class="footer-content">
+          <p>© 2025 SipeL • Sistem Pemilihan Elektronik RT/RW</p>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // Hamburger Menu Toggle
+    document.addEventListener('DOMContentLoaded', function() {
+        const hamburger = document.getElementById('hamburger');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+        if (hamburger && sidebar) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                sidebar.classList.toggle('active');
+                
+                if (sidebarOverlay) {
+                    sidebarOverlay.classList.toggle('active');
+                }
+            });
+
+            if (sidebarOverlay) {
+                sidebarOverlay.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    sidebar.classList.remove('active');
+                    sidebarOverlay.classList.remove('active');
+                });
+            }
+
+            document.querySelectorAll('.sidebar a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    sidebar.classList.remove('active');
+                    if (sidebarOverlay) {
+                        sidebarOverlay.classList.remove('active');
+                    }
+                });
+            });
+
+            window.addEventListener('scroll', () => {
+                if (window.innerWidth <= 768 && sidebar.classList.contains('active')) {
+                    hamburger.classList.remove('active');
+                    sidebar.classList.remove('active');
+                    if (sidebarOverlay) {
+                        sidebarOverlay.classList.remove('active');
+                    }
+                }
+            });
+        }
+
+        // Filter functionality
+        const jabatanFilter = document.getElementById('jabatan-filter');
+        const jabatanSections = document.querySelectorAll('.jabatan-section');
+
+        if (jabatanFilter) {
+            jabatanFilter.addEventListener('change', function() {
+                const selectedValue = this.value;
+                
+                jabatanSections.forEach(section => {
+                    if (selectedValue === 'all' || section.dataset.jabatan === selectedValue) {
+                        section.style.display = 'block';
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+            });
+        }
+    });
+  </script>
+</body>
+</html>
